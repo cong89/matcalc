@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
+import com.android.matcalc.R;
 
 public class MainActivity extends Activity {
 	GridView mKeypadGrid;
@@ -69,8 +70,9 @@ public class MainActivity extends Activity {
 
 		Matrix A = new Matrix(dblMatrixA);
 		Matrix b = new Matrix(dblMatrixB);
-		Matrix x;
+		Matrix x = null;
 
+		boolean valid = false;
 		double[][] dblAns;
 		int row;
 		int col;
@@ -79,19 +81,33 @@ public class MainActivity extends Activity {
 		// switch between different button pressed
 		switch (keypadButton) {
 		case ADD:
-			x = A.plus(b);
+			if (A.getColumnDimension() == b.getColumnDimension()
+					&& A.getRowDimension() == b.getRowDimension()) {
+				x = A.plus(b);
+				valid = true;
+			}
 			break;
 
 		case SUBTRACT:
-			x = A.minus(b);
+			if (A.getColumnDimension() == b.getColumnDimension()
+					&& A.getRowDimension() == b.getRowDimension()) {
+				x = A.minus(b);
+				valid = true;
+			}
 			break;
 
 		case MULTIPLY:
-			x = A.times(b);
+			if (A.getColumnDimension() == b.getRowDimension()) {
+				x = A.times(b);
+				valid = true;
+			}
 			break;
 
 		case DIVIDE:
-			x = b.solve(A);
+			if (A.getColumnDimension() == b.getRowDimension()) {
+				x = b.solve(A);
+				valid = true;
+			}
 			break;
 
 		default:
@@ -100,37 +116,75 @@ public class MainActivity extends Activity {
 			x = null;
 			break;
 		}
-		dblAns = x.getArrayCopy();
-		row = x.getRowDimension();
-		col = x.getColumnDimension();
-		ans = MatrixParser.dblToStr(dblAns, row, col);
 
-		// Toast to display which button is pressed
-		Toast toast = Toast
-				.makeText(MainActivity.this, keypadButton.getText().toString()
-						+ " " + keypadButton.toString(), Toast.LENGTH_SHORT);
+		if (valid) {
+			dblAns = x.getArrayCopy();
+			row = x.getRowDimension();
+			col = x.getColumnDimension();
+			ans = MatrixParser.dblToStr(dblAns, row, col);
 
-		// Dialog to show the results and additional options
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Output:")
-				.setMessage(ans)
-				.setCancelable(false)
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								MainActivity.this.finish();
-							}
-						})
-				.setNegativeButton("No", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
-					}
-				});
-		AlertDialog alert = builder.create();
+			// Toast to display which button is pressed
+			Toast toast = Toast.makeText(MainActivity.this, keypadButton
+					.getText().toString() + " " + keypadButton.toString(),
+					Toast.LENGTH_SHORT);
 
-		// Showing dialog and toast
-		toast.show();
-		alert.show();
+			// Dialog to show the results and additional options
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Output:")
+					.setMessage(ans)
+					.setCancelable(false)
+					.setPositiveButton("Yes",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int id) {
+									MainActivity.this.finish();
+								}
+							})
+					.setNeutralButton("Neutural",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.cancel();
+
+								}
+							})
+					.setNegativeButton("No",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int id) {
+									dialog.cancel();
+								}
+							});
+			AlertDialog alert = builder.create();
+
+			// Showing dialog and toast
+			toast.show();
+			alert.show();
+		} else {
+			// Toast to display which button is pressed
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Sorry, invalid operation!")
+					.setCancelable(false)
+					.setNegativeButton("Ok",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int id) {
+									dialog.cancel();
+								}
+							});
+			AlertDialog alert = builder.create();
+
+			alert.show();
+
+			Toast.makeText(MainActivity.this, "invalid operation",
+					Toast.LENGTH_SHORT).show();
+		}
 
 	}
 

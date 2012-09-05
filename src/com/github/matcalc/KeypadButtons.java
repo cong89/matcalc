@@ -3,8 +3,8 @@ package com.github.matcalc;
 public enum KeypadButtons {
 	ADD("A+B", KeypadTypes.SIMPLE_OPERATION),
 	SUBTRACT("A-B", KeypadTypes.SIMPLE_OPERATION),
-	MULTIPLY("A*B", KeypadTypes.SIMPLE_OPERATION),
-	DIVIDE("A/B", KeypadTypes.COMPLEX_OPERATION),
+	MULTIPLY("AB", KeypadTypes.SIMPLE_OPERATION),
+	DIVIDE("AB^-1", KeypadTypes.COMPLEX_OPERATION),
 	DET("det(A)", KeypadTypes.SIMPLE_OPERATION),
 	INV("inv(A)", KeypadTypes.COMPLEX_OPERATION),
 	POW2("A^2", KeypadTypes.COMPLEX_OPERATION),
