@@ -17,7 +17,8 @@
             android:layout_height="150dp"
             android:layout_weight="1"
             android:hint="@string/matrix_hint_A"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine" 
+            android:gravity="top"/>
 
         <EditText
             android:id="@+id/matrixB"
@@ -25,7 +26,8 @@
             android:layout_height="150dp"
             android:layout_weight="1"
             android:hint="@string/matrix_hint_B"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine" 
+            android:gravity="top"/>
     </LinearLayout>
 
     <GridView
