@@ -4,7 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="matrix_hint_A">Matrix A</string>
-    <string name="matrix_hint_B">Matrix B</string>
+    <string name="matrix_hint_A">Matrix <b>A</b></string>
+    <string name="matrix_hint_B">Matrix <b>B</b></string>
+    <string name="transposeA">A<small><sup>T</sup></small></string>
 
 </resources>

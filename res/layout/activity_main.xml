@@ -32,9 +32,9 @@
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:horizontalSpacing="5dp"
+        android:horizontalSpacing="3dp"
         android:numColumns="4"
-        android:verticalSpacing="5dp" >
+        android:verticalSpacing="3dp" >
     </GridView>
 
 </LinearLayout>

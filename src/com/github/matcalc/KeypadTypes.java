@@ -5,5 +5,6 @@ public enum KeypadTypes{
 	COMPLEX_OPERATION,
 	CLEAR,
 	RESULT,
-	OTHER
+	OTHER,
+	DUMMY
 }
