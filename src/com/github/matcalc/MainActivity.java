@@ -17,6 +17,11 @@ import android.widget.Toast;
 import com.android.matcalc.R;
 
 public class MainActivity extends Activity {
+
+	public static final int DIMENSION_MISSMATCH = 0;
+	public static final int PARSING_FAILED = 1;
+	public static final int NO_INVERSE = 2;
+
 	GridView mKeypadGrid;
 	KeypadAdapter mKeypadAdapter;
 
@@ -57,21 +62,23 @@ public class MainActivity extends Activity {
 
 	}
 
+	protected Matrix getMatrix(int id) {
+		EditText matrix = (EditText) findViewById(id);
+		String strMatrix = matrix.getText().toString();
+		double[][] dblMatrix = MatrixParser.parse(strMatrix);
+		if (dblMatrix == null) {
+			return null;
+		} else {
+			Matrix X = new Matrix(dblMatrix);
+			return X;
+		}
+	}
+
 	protected void ProcessKeypadInput(KeypadButtons keypadButton) {
 
-		EditText matrixA = (EditText) findViewById(R.id.matrixA);
-		EditText matrixB = (EditText) findViewById(R.id.matrixB);
-
-		String strMatrixA = matrixA.getText().toString();
-		String strMatrixB = matrixB.getText().toString();
-
-		double[][] dblMatrixA = MatrixParser.parse(strMatrixA);
-		double[][] dblMatrixB = MatrixParser.parse(strMatrixB);
-
-		Matrix A = new Matrix(dblMatrixA);
-		Matrix b = new Matrix(dblMatrixB);
+		Matrix A;
+		Matrix b;
 		Matrix x = null;
-
 		boolean valid = false;
 		double[][] dblAns;
 		int row;
@@ -80,40 +87,58 @@ public class MainActivity extends Activity {
 
 		// switch between different button pressed
 		switch (keypadButton) {
+
 		case ADD:
-			if (A.getColumnDimension() == b.getColumnDimension()
-					&& A.getRowDimension() == b.getRowDimension()) {
-				x = A.plus(b);
-				valid = true;
+			A = getMatrix(R.id.matrixA);
+			b = getMatrix(R.id.matrixB);
+
+			if (A != null && b != null) {
+				if (A.getColumnDimension() == b.getColumnDimension()
+						&& A.getRowDimension() == b.getRowDimension()) {
+					x = A.plus(b);
+					valid = true;
+				}
 			}
 			break;
 
 		case SUBTRACT:
-			if (A.getColumnDimension() == b.getColumnDimension()
-					&& A.getRowDimension() == b.getRowDimension()) {
-				x = A.minus(b);
-				valid = true;
+			A = getMatrix(R.id.matrixA);
+			b = getMatrix(R.id.matrixB);
+
+			if (A != null && b != null) {
+				if (A.getColumnDimension() == b.getColumnDimension()
+						&& A.getRowDimension() == b.getRowDimension()) {
+					x = A.minus(b);
+					valid = true;
+				}
 			}
 			break;
 
 		case MULTIPLY:
-			if (A.getColumnDimension() == b.getRowDimension()) {
-				x = A.times(b);
-				valid = true;
+			A = getMatrix(R.id.matrixA);
+			b = getMatrix(R.id.matrixB);
+
+			if (A != null && b != null) {
+				if (A.getColumnDimension() == b.getRowDimension()) {
+					x = A.times(b);
+					valid = true;
+				}
 			}
 			break;
 
 		case DIVIDE:
-			if (A.getColumnDimension() == b.getRowDimension()) {
-				x = b.solve(A);
-				valid = true;
+			A = getMatrix(R.id.matrixA);
+			b = getMatrix(R.id.matrixB);
+			if (A != null && b != null) {
+				if (A.getColumnDimension() == b.getRowDimension()) {
+					x = b.solve(A);
+					valid = true;
+				}
 			}
 			break;
 
 		default:
-			System.out.println(keypadButton.getText().toString() + " "
-					+ keypadButton.toString());
-			x = null;
+			System.out.println("default error: " + keypadButton.toString());
 			break;
 		}
 
@@ -165,8 +190,8 @@ public class MainActivity extends Activity {
 			toast.show();
 			alert.show();
 		} else {
-			// Toast to display which button is pressed
 
+			// Dialog to say invalid operation
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage("Sorry, invalid operation!")
 					.setCancelable(false)
@@ -182,10 +207,10 @@ public class MainActivity extends Activity {
 
 			alert.show();
 
+			// Toast to display an invalid operation
 			Toast.makeText(MainActivity.this, "invalid operation",
 					Toast.LENGTH_SHORT).show();
 		}
-
 	}
 
 	@Override

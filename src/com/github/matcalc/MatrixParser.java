@@ -3,7 +3,8 @@ package com.github.matcalc;
 public class MatrixParser {
 
 	// TODO Check if its a valid matrix, not working yet
-	public static boolean check(int id1) {
+	public static boolean check(String strX) {
+		Integer.parseInt(strX);
 		boolean check = true;
 		return check;
 	}
@@ -28,10 +29,13 @@ public class MatrixParser {
 				try {
 					// dblX[i][j] = Double.valueOf(strTmp[j]).doubleValue();
 					dblX[i][j] = Double.parseDouble(strTmp[j]);
-				} catch (NumberFormatException nfe) {
-
+				} catch (Exception e) {
+					System.out.println("Parsing failed.");
+					dblX = null;
+					break;
 				}
 			}
+			if (dblX == null) break;
 		}
 		return dblX;
 	}
