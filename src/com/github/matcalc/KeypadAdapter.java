@@ -38,6 +38,7 @@ public class KeypadAdapter extends BaseAdapter {
 			KeypadButtons.SUBTRACT, KeypadButtons.MULTIPLY,
 			KeypadButtons.DIVIDE, KeypadButtons.DET, KeypadButtons.INV,
 			KeypadButtons.POW2, KeypadButtons.POWN, KeypadButtons.TRANSPOSE,
+			KeypadButtons.RANK, KeypadButtons.TRACE, KeypadButtons.EIGVALUE,
 			KeypadButtons.NORM1, KeypadButtons.NORM2, KeypadButtons.NORMINF };
 
 	@Override

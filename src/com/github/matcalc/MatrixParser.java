@@ -1,6 +1,8 @@
 package com.github.matcalc;
 
 public class MatrixParser {
+	
+	public static final double eps = 1e-6;
 
 	// TODO Check if its a valid matrix, not working yet
 	public static boolean check(String strX) {
@@ -49,12 +51,19 @@ public class MatrixParser {
 
 		for (i = 0; i < row; i++) {
 			for (j = 0; j < col; j++) {
-				strAns = strAns + Double.toString(x[i][j]) + " ";
+				strAns = strAns + String.format("%.4f", x[i][j]) + ", ";
 			}
 			strAns = strAns + "\n";
 		}
 		return strAns;
 
+	}
+	
+	public static boolean isZero(double x){
+		if (Math.abs(x) < eps){
+			return true;
+		} 
+		return false;
 	}
 
 }
