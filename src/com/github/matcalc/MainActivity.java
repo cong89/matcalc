@@ -22,11 +22,6 @@ public class MainActivity extends Activity {
 	public static final int DOUBLE_RESULT = 1;
 	public static final int INT_RESULT = 2;
 
-	public static final int WRONG_DIMENSION = 0;
-	public static final int PARSING_FAILED = 1;
-	public static final int NO_INVERSE = 2;
-	public static final int NOT_SQUARE = 3;
-
 	GridView mKeypadGrid;
 	KeypadAdapter mKeypadAdapter;
 
@@ -80,13 +75,10 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	private boolean isSquare(Matrix A) {
-		return (A.getColumnDimension() == A.getRowDimension());
-	}
-
 	private void ProcessKeypadInput(KeypadButtons keypadButton) {
 
 		boolean valid = false;
+		boolean parsed = false;
 		Matrix A;
 		Matrix b;
 
@@ -100,8 +92,9 @@ public class MainActivity extends Activity {
 		int col;
 
 		int ansType = -1;
-		int errType = -1;
+
 		String ans = "No result";
+		String errMsg = "Unknown error";
 
 		// switch between different button pressed
 		switch (keypadButton) {
@@ -112,15 +105,13 @@ public class MainActivity extends Activity {
 			b = getMatrix(R.id.matrixB);
 
 			if (A != null && b != null) {
-				if (A.getColumnDimension() == b.getColumnDimension()
-						&& A.getRowDimension() == b.getRowDimension()) {
+				parsed = true;
+				try {
 					mtxAns = A.plus(b);
 					valid = true;
-				} else {
-					errType = WRONG_DIMENSION;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
 				}
-			} else {
-				errType = PARSING_FAILED;
 			}
 			break;
 
@@ -130,15 +121,13 @@ public class MainActivity extends Activity {
 			b = getMatrix(R.id.matrixB);
 
 			if (A != null && b != null) {
-				if (A.getColumnDimension() == b.getColumnDimension()
-						&& A.getRowDimension() == b.getRowDimension()) {
+				parsed = true;
+				try {
 					mtxAns = A.minus(b);
 					valid = true;
-				} else {
-					errType = WRONG_DIMENSION;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
 				}
-			} else {
-				errType = PARSING_FAILED;
 			}
 			break;
 
@@ -148,77 +137,78 @@ public class MainActivity extends Activity {
 			b = getMatrix(R.id.matrixB);
 
 			if (A != null && b != null) {
-				if (A.getColumnDimension() == b.getRowDimension()) {
+				parsed = true;
+				try {
 					mtxAns = A.times(b);
 					valid = true;
-				} else {
-					errType = WRONG_DIMENSION;
+				} catch (Exception e){
+					errMsg = e.getMessage();
 				}
-			} else {
-				errType = PARSING_FAILED;
 			}
 			break;
 
-		case DIVIDE:
+		case SOLVE:
 			ansType = MATRIX_RESULT;
 			A = getMatrix(R.id.matrixA);
 			b = getMatrix(R.id.matrixB);
 			if (A != null && b != null) {
-				if (A.getColumnDimension() == b.getRowDimension()) {
-					mtxAns = b.solve(A);
+				parsed = true;
+				try {
+					mtxAns = A.solve(b);
 					valid = true;
-				} else {
-					errType = WRONG_DIMENSION;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
 				}
-			} else {
-				errType = PARSING_FAILED;
 			}
 			break;
 
-		case DET:
+		/* SPECIAL CASE, manually implemented errMsg 
+		 * because it wasn't giving the correct exception message*/ 
+		case DET: 
 			ansType = DOUBLE_RESULT;
 			A = getMatrix(R.id.matrixA);
 			if (A != null) {
-				if (isSquare(A)) {
+				parsed = true;
+				
+				if (A.getColumnDimension() == A.getRowDimension()){
+				try {
 					dblAns = A.det();
 					valid = true;
-				} else {
-					errType = NOT_SQUARE;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
 				}
-			} else {
-				errType = PARSING_FAILED;
+				} else {
+					errMsg = "Matrix must be square.";
+				}
 			}
 			break;
 
 		case INV:
 			ansType = MATRIX_RESULT;
 			A = getMatrix(R.id.matrixA);
-			if (A != null) { // check for null, then square, then det!=0
-				if (isSquare(A)) {
-					if (!MatrixParser.isZero(A.det())) {
-						mtxAns = A.inverse();
-						valid = true;
-					} else {
-						errType = NO_INVERSE;
-					}
-				} else {
-					errType = NOT_SQUARE;
+			if (A != null) {
+				parsed = true;
+				try {
+					mtxAns = A.inverse();
+					valid = true;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
 				}
-			} else {
-				errType = PARSING_FAILED;
 			}
 			break;
 
 		case POW2:
 			ansType = MATRIX_RESULT;
 			A = getMatrix(R.id.matrixA);
-			if (A != null) { // check for null, then square
-				if (isSquare(A)) {
+			if (A != null) {
+				parsed = true;
+				try {
 					mtxAns = A.times(A);
 					valid = true;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
 				}
-			} else {
-				errType = PARSING_FAILED;
+
 			}
 			break;
 
@@ -226,10 +216,13 @@ public class MainActivity extends Activity {
 			ansType = MATRIX_RESULT;
 			A = getMatrix(R.id.matrixA);
 			if (A != null) {
-				mtxAns = A.transpose();
-				valid = true;
-			} else {
-				errType = PARSING_FAILED;
+				parsed = true;
+				try {
+					mtxAns = A.transpose();
+					valid = true;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
+				}
 			}
 			break;
 
@@ -237,10 +230,13 @@ public class MainActivity extends Activity {
 			ansType = INT_RESULT;
 			A = getMatrix(R.id.matrixA);
 			if (A != null) {
-				intAns = A.rank();
-				valid = true;
-			} else {
-				errType = PARSING_FAILED;
+				parsed = true;
+				try {
+					intAns = A.rank();
+					valid = true;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
+				}
 			}
 			break;
 
@@ -248,49 +244,59 @@ public class MainActivity extends Activity {
 			ansType = DOUBLE_RESULT;
 			A = getMatrix(R.id.matrixA);
 			if (A != null) {
-				if (isSquare(A)) {
+				parsed = true;
+				try {
 					dblAns = A.trace();
 					valid = true;
-				} else {
-					errType = NOT_SQUARE;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
 				}
-			} else {
-				errType = PARSING_FAILED;
+
 			}
 			break;
 
 		case NORM1:
 			ansType = DOUBLE_RESULT;
 			A = getMatrix(R.id.matrixA);
-			if (A != null){
-				dblAns = A.norm1();
-				valid = true;
-			} else {
-				errType = PARSING_FAILED;
+			if (A != null) {
+				parsed = true;
+				try {
+					dblAns = A.norm1();
+					valid = true;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
+				}
 			}
 			break;
 
 		case NORM2:
 			ansType = DOUBLE_RESULT;
 			A = getMatrix(R.id.matrixA);
-			if (A != null){
-				dblAns = A.norm2();
-				valid = true;
-			} else {
-				errType = PARSING_FAILED;
+			if (A != null) {
+				parsed = true;
+				try {
+					dblAns = A.norm2();
+					valid = true;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
+				}
 			}
 			break;
 
 		case NORMINF:
 			ansType = DOUBLE_RESULT;
 			A = getMatrix(R.id.matrixA);
-			if (A != null){
-				dblAns = A.normInf();
-				valid = true;
-			} else {
-				errType = PARSING_FAILED;
+			if (A != null) {
+				parsed = true;
+				try {
+					dblAns = A.normInf();
+					valid = true;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
+				}
 			}
 			break;
+
 		default:
 			System.out.println("default error: " + keypadButton.toString());
 			break;
@@ -309,9 +315,9 @@ public class MainActivity extends Activity {
 			}
 
 			// Toast to display which button is pressed
-//			Toast toast = Toast.makeText(MainActivity.this, keypadButton
-//					.getText().toString() + " " + keypadButton.toString(),
-//					Toast.LENGTH_SHORT);
+			// Toast toast = Toast.makeText(MainActivity.this, keypadButton
+			// .getText().toString() + " " + keypadButton.toString(),
+			// Toast.LENGTH_SHORT);
 
 			// Dialog to show the results and additional options
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -332,6 +338,12 @@ public class MainActivity extends Activity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
+									/*
+									 * http://stackoverflow.com/questions/9027629
+									 * /
+									 * android-clipboard-code-that-works-on-all-
+									 * api-levels
+									 */
 									dialog.cancel();
 
 								}
@@ -347,21 +359,12 @@ public class MainActivity extends Activity {
 			AlertDialog alert = builder.create();
 
 			// Showing dialog and toast
-//			toast.show();
+			// toast.show();
 			alert.show();
 		} else {
 
-			String errMsg;
-			if (errType == WRONG_DIMENSION) {
-				errMsg = "Incorrect dimension";
-			} else if (errType == PARSING_FAILED) {
-				errMsg = "Invalid matrix";
-			} else if (errType == NO_INVERSE) {
-				errMsg = "No inverse (|A| = 0)";
-			} else if (errType == NOT_SQUARE) {
-				errMsg = "Not square matrix";
-			} else {
-				errMsg = "Unknown error";
+			if (!parsed) {
+				errMsg = "Invalid matrix.";
 			}
 
 			// Dialog to say invalid operation
@@ -382,8 +385,8 @@ public class MainActivity extends Activity {
 			alert.show();
 
 			// Toast to display an invalid operation
-//			Toast.makeText(MainActivity.this, "invalid operation",
-//					Toast.LENGTH_SHORT).show();
+			// Toast.makeText(MainActivity.this, "invalid operation",
+			// Toast.LENGTH_SHORT).show();
 		}
 	}
 

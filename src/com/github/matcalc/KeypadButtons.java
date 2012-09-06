@@ -4,7 +4,7 @@ public enum KeypadButtons {
 	ADD("A+B", KeypadTypes.SIMPLE_OPERATION),
 	SUBTRACT("A-B", KeypadTypes.SIMPLE_OPERATION),
 	MULTIPLY("AB", KeypadTypes.SIMPLE_OPERATION),
-	DIVIDE("AB^-1", KeypadTypes.COMPLEX_OPERATION),
+	SOLVE("A*X=B", KeypadTypes.COMPLEX_OPERATION),
 	DET("|A|", KeypadTypes.SIMPLE_OPERATION),
 	INV("A^-1", KeypadTypes.COMPLEX_OPERATION),
 	POW2("A^2", KeypadTypes.COMPLEX_OPERATION),
