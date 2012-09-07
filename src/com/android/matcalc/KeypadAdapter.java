@@ -1,4 +1,4 @@
-package com.github.matcalc;
+package com.android.matcalc;
 
 import android.content.Context;
 import android.view.View.OnClickListener;

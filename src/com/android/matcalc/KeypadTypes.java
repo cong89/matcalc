@@ -1,4 +1,4 @@
-package com.github.matcalc;
+package com.android.matcalc;
 
 public enum KeypadTypes{
 	SIMPLE_OPERATION, 

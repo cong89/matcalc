@@ -1,4 +1,4 @@
-package com.github.matcalc;
+package com.android.matcalc;
 
 import Jama.Matrix;
 import android.app.Activity;

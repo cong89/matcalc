@@ -1,4 +1,4 @@
-package com.github.matcalc;
+package com.android.matcalc;
 
 public enum KeypadButtons {
 	ADD("A+B", KeypadTypes.SIMPLE_OPERATION),

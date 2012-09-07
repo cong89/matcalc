@@ -1,15 +1,6 @@
-package com.github.matcalc;
+package com.android.matcalc;
 
 public class MatrixParser {
-	
-	public static final double eps = 1e-6;
-
-	// TODO Check if its a valid matrix, not working yet
-	public static boolean check(String strX) {
-		Integer.parseInt(strX);
-		boolean check = true;
-		return check;
-	}
 
 	// parse string into 2D double
 	public static double[][] parse(String strX) {
@@ -57,13 +48,6 @@ public class MatrixParser {
 		}
 		return strAns;
 
-	}
-	
-	public static boolean isZero(double x){
-		if (Math.abs(x) < eps){
-			return true;
-		} 
-		return false;
 	}
 
 }
