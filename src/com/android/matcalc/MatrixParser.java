@@ -37,9 +37,9 @@ public class MatrixParser {
 
 	// Convert double to string
 	public static String dblToStr(double[][] x, int row, int col) {
+		
 		int i = 0;
 		int j = 0;
-
 		String strAns = "";
 		
 		// Using NumberFormat to have more control over formatted strings

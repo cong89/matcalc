@@ -17,6 +17,7 @@ public enum KeypadButtons {
 	NORM1("||A||1", KeypadTypes.SIMPLE_OPERATION, R.string.norm_url),
 	NORM2("||A||2", KeypadTypes.SIMPLE_OPERATION, R.string.norm_url),
 	NORMINF("||A||Inf", KeypadTypes.SIMPLE_OPERATION, R.string.norm_url),
+	SWAP("swap", KeypadTypes.OTHER, R.string.google_url),
 	DUMMY("", KeypadTypes.DUMMY, R.string.google_url);
 
 	CharSequence mText;

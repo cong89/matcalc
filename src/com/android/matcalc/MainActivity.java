@@ -86,6 +86,7 @@ public class MainActivity extends Activity {
 
 		boolean valid = false;
 		boolean parsed = false;
+		boolean swap = false;
 		Matrix A;
 		Matrix b;
 
@@ -318,13 +319,25 @@ public class MainActivity extends Activity {
 				}
 			}
 			break;
+			
+		case SWAP:
+			EditText etMatrixA = (EditText) findViewById(R.id.matrixA);
+			EditText etMatrixB = (EditText) findViewById(R.id.matrixB);
+			String strTmp = etMatrixB.getText().toString();
+			
+			etMatrixB.setText(etMatrixA.getText().toString());
+			etMatrixA.setText(strTmp);
+			
+			swap = true;
+			break;
 
 		default:
 			System.out.println("default error: " + keypadButton.toString());
 			break;
 		}
 
-		if (valid) {
+		if (valid && !swap) {
+			// Using NumberFormat to have more control over formatted strings
 			NumberFormat nf = NumberFormat.getInstance();
 			nf.setMaximumFractionDigits(4);
 			nf.setMinimumFractionDigits(0);
@@ -354,55 +367,57 @@ public class MainActivity extends Activity {
 					.setCancelable(false)
 					.setPositiveButton("Why?", // Take user to URL
 							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int id) {
-									Intent viewIntent = new Intent(
-											"android.intent.action.VIEW",
-											Uri.parse(finalUrl));
-									startActivity(viewIntent);
-								}
+@Override
+public void onClick(DialogInterface dialog, int id) {
+	Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(finalUrl));
+	startActivity(viewIntent);
+}
 							})
 					.setNeutralButton("Copy",
 							new DialogInterface.OnClickListener() {
 
-								@SuppressWarnings("deprecation")
-								@SuppressLint("NewApi")
-								@Override
-								public void onClick(DialogInterface dialog,
-										int id) {
-/* if-else to detect API version and use
- * the appropriate clipboard methods
- */
-int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-if (currentapiVersion >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-	android.content.ClipboardManager clipboard = 
-			(android.content.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-	ClipData clip = ClipData.newPlainText("label", finalAns);
-	clipboard.setPrimaryClip(clip);
-} else { 
-	android.text.ClipboardManager clipboard = 
-			(android.text.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-	clipboard.setText(finalAns);
-}
-
-Toast.makeText(getApplicationContext(), "Copied to clipboard", 
-		Toast.LENGTH_SHORT).show();
-								}
+@SuppressWarnings("deprecation")
+@SuppressLint("NewApi")
+@Override
+public void onClick(DialogInterface dialog,
+		int id) {
+	/* if-else to detect API version and use
+	 * the appropriate clipboard methods
+	 */
+	int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+	if (currentapiVersion >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+		android.content.ClipboardManager clipboard = 
+				(android.content.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+		ClipData clip = ClipData.newPlainText("label", finalAns);
+		clipboard.setPrimaryClip(clip);
+	} else { 
+		android.text.ClipboardManager clipboard = 
+				(android.text.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+		clipboard.setText(finalAns);
+	}
+	
+	Toast.makeText(getApplicationContext(), "Copied to clipboard", 
+			Toast.LENGTH_SHORT).show();
+				}
 							})
 					.setNegativeButton("Ok",
 							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int id) {
-									dialog.cancel();
-								}
+@Override
+public void onClick(DialogInterface dialog, int id) {
+	dialog.cancel();
+}
 							});
 			AlertDialog alert = builder.create();
 
 			// Showing dialog and toast
 			// toast.show();
 			alert.show();
+			
+			
+		} else if (swap){
+			Toast.makeText(getApplicationContext(), "Swapped", 
+					Toast.LENGTH_SHORT).show();
+		
 		} else {
 
 			if (!parsed) {
