@@ -9,5 +9,15 @@
     <string name="matrix_hint_A">Matrix <b>A</b></string>
     <string name="matrix_hint_B">Matrix <b>B</b></string>
     <string name="transposeA">A<small><sup>T</sup></small></string>
+    <string name="add_sub_url">http://en.wikipedia.org/wiki/Matrix_addition</string>
+    <string name="multiply_url">http://en.wikipedia.org/wiki/Matrix_multiplication</string>
+    <string name="solve_url">http://en.wikipedia.org/wiki/System_of_linear_equations</string>
+    <string name="det_url">http://en.wikipedia.org/wiki/Matrix_determinant</string>
+    <string name="inv_url">http://en.wikipedia.org/wiki/Matrix_inverse</string>
+    <string name="transpose_url">http://en.wikipedia.org/wiki/Matrix_transpose</string>
+    <string name="rank_url">http://en.wikipedia.org/wiki/Rank_matrix</string>
+    <string name="trace_url">http://en.wikipedia.org/wiki/Matrix_trace</string>
+    <string name="norm_url">http://en.wikipedia.org/wiki/Matrix_norm</string>
+    <string name="google_url">http://www.google.com</string>
 
 </resources>

@@ -1,5 +1,7 @@
 package com.android.matcalc;
 
+import java.text.NumberFormat;
+
 public class MatrixParser {
 
 	// parse string into 2D double
@@ -39,10 +41,15 @@ public class MatrixParser {
 		int j = 0;
 
 		String strAns = "";
+		
+		// Using NumberFormat to have more control over formatted strings
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMaximumFractionDigits(4);
+		nf.setMinimumFractionDigits(0);
 
 		for (i = 0; i < row; i++) {
 			for (j = 0; j < col; j++) {
-				strAns = strAns + String.format("%.4f", x[i][j]) + ", ";
+				strAns = strAns + nf.format(x[i][j]) + ", ";
 			}
 			strAns = strAns + "\n";
 		}

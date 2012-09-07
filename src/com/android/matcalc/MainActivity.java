@@ -1,5 +1,7 @@
 package com.android.matcalc;
 
+import java.text.NumberFormat;
+
 import Jama.Matrix;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -215,7 +217,20 @@ public class MainActivity extends Activity {
 				} catch (Exception e) {
 					errMsg = e.getMessage();
 				}
-
+			}
+			break;
+			
+		case POW3:
+			ansType = MATRIX_RESULT;
+			A = getMatrix(R.id.matrixA);
+			if (A != null) {
+				parsed = true;
+				try {
+					mtxAns = A.times(A).times(A);
+					valid = true;
+				} catch (Exception e) {
+					errMsg = e.getMessage();
+				}
 			}
 			break;
 
@@ -310,18 +325,22 @@ public class MainActivity extends Activity {
 		}
 
 		if (valid) {
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMaximumFractionDigits(4);
+			nf.setMinimumFractionDigits(0);
 			if (ansType == MATRIX_RESULT) {
 				dblTmpAns = mtxAns.getArrayCopy();
 				row = mtxAns.getRowDimension();
 				col = mtxAns.getColumnDimension();
 				ans = MatrixParser.dblToStr(dblTmpAns, row, col);
 			} else if (ansType == DOUBLE_RESULT) {
-				ans = String.format("%.4f", dblAns);
+				ans = nf.format(dblAns);
 			} else if (ansType == INT_RESULT) {
-				ans = String.format("%d", intAns);
+				ans = nf.format(intAns);
 			}
 
 			final String finalAns = ans;
+			final String finalUrl = getString(keypadButton.getUrlId());
 
 			// Toast to display which button is pressed
 			// Toast toast = Toast.makeText(MainActivity.this, keypadButton
@@ -340,7 +359,7 @@ public class MainActivity extends Activity {
 										int id) {
 									Intent viewIntent = new Intent(
 											"android.intent.action.VIEW",
-											Uri.parse("http://www.wikipedia.com/"));
+											Uri.parse(finalUrl));
 									startActivity(viewIntent);
 								}
 							})
@@ -366,9 +385,9 @@ if (currentapiVersion >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 			(android.text.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 	clipboard.setText(finalAns);
 }
-									Toast.makeText(getApplicationContext(),
-											"Copied to clipboard",
-											Toast.LENGTH_SHORT).show();
+
+Toast.makeText(getApplicationContext(), "Copied to clipboard", 
+		Toast.LENGTH_SHORT).show();
 								}
 							})
 					.setNegativeButton("Ok",

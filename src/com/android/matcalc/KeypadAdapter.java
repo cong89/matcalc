@@ -37,7 +37,7 @@ public class KeypadAdapter extends BaseAdapter {
 	private KeypadButtons[] mButtons = { KeypadButtons.ADD,
 			KeypadButtons.SUBTRACT, KeypadButtons.MULTIPLY,
 			KeypadButtons.SOLVE, KeypadButtons.DET, KeypadButtons.INV,
-			KeypadButtons.POW2, KeypadButtons.POWN, KeypadButtons.TRANSPOSE,
+			KeypadButtons.POW2, KeypadButtons.POW3, KeypadButtons.TRANSPOSE,
 			KeypadButtons.RANK, KeypadButtons.TRACE, KeypadButtons.EIGVALUE,
 			KeypadButtons.NORM1, KeypadButtons.NORM2, KeypadButtons.NORMINF };
 
