@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
 
 		boolean valid = false;
 		boolean parsed = false;
-		boolean swap = false;
+		boolean noDialog = false;
 		Matrix A;
 		Matrix b;
 
@@ -328,7 +328,7 @@ public class MainActivity extends Activity {
 			etMatrixB.setText(etMatrixA.getText().toString());
 			etMatrixA.setText(strTmp);
 			
-			swap = true;
+			noDialog = true;
 			break;
 
 		default:
@@ -336,7 +336,7 @@ public class MainActivity extends Activity {
 			break;
 		}
 
-		if (valid && !swap) {
+		if (valid && !noDialog) {
 			// Using NumberFormat to have more control over formatted strings
 			NumberFormat nf = NumberFormat.getInstance();
 			nf.setMaximumFractionDigits(4);
@@ -414,7 +414,7 @@ public void onClick(DialogInterface dialog, int id) {
 			alert.show();
 			
 			
-		} else if (swap){
+		} else if (noDialog){
 			Toast.makeText(getApplicationContext(), "Swapped", 
 					Toast.LENGTH_SHORT).show();
 		
@@ -461,7 +461,8 @@ public void onClick(DialogInterface dialog, int id) {
 			MainActivity.this.finish();
 			return true;
 		case R.id.menu_about:
-			// TODO
+			Intent intent = new Intent(this, AboutActivity.class);
+			startActivity(intent);
 			return true;
 		case R.id.menu_settings:
 			// TODO
