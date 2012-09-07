@@ -56,5 +56,19 @@ public class MatrixParser {
 		return strAns;
 
 	}
+	
+	// Display complex number
+	public static String dispComplex(double re[], double im[]){
+		String str = ""; 
+		int i = 0;
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMaximumFractionDigits(4);
+		nf.setMinimumFractionDigits(0);
+		for (i = 0; i < re.length; i++){
+			str = str + nf.format(re[i]) + " + " + nf.format(im[i]) + "i\n";
+		}
+		return str;
+		
+	}
 
 }

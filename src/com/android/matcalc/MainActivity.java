@@ -1,8 +1,10 @@
 package com.android.matcalc;
 
 import java.text.NumberFormat;
-
 import Jama.Matrix;
+import Jama.EigenvalueDecomposition;
+import Jama.LUDecomposition;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
@@ -20,7 +22,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
-
 import android.annotation.SuppressLint;
 
 public class MainActivity extends Activity {
@@ -28,6 +29,7 @@ public class MainActivity extends Activity {
 	public static final int MATRIX_RESULT = 0;
 	public static final int DOUBLE_RESULT = 1;
 	public static final int INT_RESULT = 2;
+	public static final int COMPLEX_ARRAY_RESULT = 3;
 
 	GridView mKeypadGrid;
 	KeypadAdapter mKeypadAdapter;
@@ -87,12 +89,15 @@ public class MainActivity extends Activity {
 		boolean valid = false;
 		boolean parsed = false;
 		boolean noDialog = false;
+		
 		Matrix A;
 		Matrix b;
 
 		Matrix mtxAns = null;
 		double dblAns = 0.0;
 		int intAns = -1;
+		double[] reAns = null;
+		double[] imAns = null;
 
 		double[][] dblTmpAns;
 
@@ -104,6 +109,8 @@ public class MainActivity extends Activity {
 		String ans = "No result";
 		String errMsg = "Unknown error";
 
+/******************************************************************************/
+		
 		// switch between different button pressed
 		switch (keypadButton) {
 
@@ -188,7 +195,7 @@ public class MainActivity extends Activity {
 						errMsg = e.getMessage();
 					}
 				} else {
-					errMsg = "Matrix must be square.";
+					errMsg = getString(R.string.not_square);
 				}
 			}
 			break;
@@ -320,6 +327,89 @@ public class MainActivity extends Activity {
 			}
 			break;
 			
+			/*
+			 * SPECIAL CASE, manually implemented errMsg because it 
+			 * wasn't giving the correct exception message
+			 */
+		case EIGVALUE:
+			ansType = COMPLEX_ARRAY_RESULT;
+			A = getMatrix(R.id.matrixA);
+			if (A != null) {
+				parsed = true;
+				if (A.getColumnDimension() == A.getRowDimension()) {
+					try {
+						EigenvalueDecomposition tmpD = A.eig();
+						reAns = tmpD.getRealEigenvalues();
+						imAns = tmpD.getImagEigenvalues();
+						valid = true;
+					} catch (Exception e) {
+						errMsg = e.getMessage();
+					}
+				} else {
+					errMsg = getString(R.string.not_square);
+				}
+			}
+			break;
+			
+			/*
+			 * SPECIAL CASE, manually implemented errMsg because it 
+			 * wasn't givingthe correct exception message
+			 */
+		case EIGVECTOR:
+			ansType = MATRIX_RESULT;
+			A = getMatrix(R.id.matrixA);
+			if (A != null) {
+				parsed = true;
+				if (A.getColumnDimension() == A.getRowDimension()) {
+					try {
+						EigenvalueDecomposition tmpV = A.eig();
+						mtxAns = tmpV.getV();
+						valid = true;
+					} catch (Exception e) {
+						errMsg = e.getMessage();
+					}
+				} else {
+					errMsg = getString(R.string.not_square);
+				}
+			}
+			break;
+			
+		case LUL:
+			ansType = MATRIX_RESULT;
+			A = getMatrix(R.id.matrixA);
+			if (A!= null){
+				parsed = true;
+				try {
+					LUDecomposition tmpLU = A.lu();
+					mtxAns = tmpLU.getL();
+					valid = true;
+				} catch (Exception e){
+					errMsg = e.getMessage();
+				}
+			}
+			break;
+			
+		case LUU:
+			ansType = MATRIX_RESULT;
+			A = getMatrix(R.id.matrixA);
+			if (A!= null){
+				parsed = true;
+				try {
+					LUDecomposition tmpLU = A.lu();
+					mtxAns = tmpLU.getU();
+					valid = true;
+				} catch (Exception e){
+					errMsg = e.getMessage();
+				}
+			}
+			break;
+		
+		case CLEARA:
+			EditText etClearA = (EditText) findViewById(R.id.matrixA);
+			etClearA.setText("");
+			noDialog = true;
+			break;
+			
 		case SWAP:
 			EditText etMatrixA = (EditText) findViewById(R.id.matrixA);
 			EditText etMatrixB = (EditText) findViewById(R.id.matrixB);
@@ -335,6 +425,8 @@ public class MainActivity extends Activity {
 			System.out.println("default error: " + keypadButton.toString());
 			break;
 		}
+		
+/******************************************************************************/		
 
 		if (valid && !noDialog) {
 			// Using NumberFormat to have more control over formatted strings
@@ -350,6 +442,8 @@ public class MainActivity extends Activity {
 				ans = nf.format(dblAns);
 			} else if (ansType == INT_RESULT) {
 				ans = nf.format(intAns);
+			} else if (ansType == COMPLEX_ARRAY_RESULT){
+				ans = MatrixParser.dispComplex(reAns, imAns);
 			}
 
 			final String finalAns = ans;

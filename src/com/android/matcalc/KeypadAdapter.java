@@ -37,10 +37,11 @@ public class KeypadAdapter extends BaseAdapter {
 	private KeypadButtons[] mButtons = { KeypadButtons.ADD,
 			KeypadButtons.SUBTRACT, KeypadButtons.MULTIPLY,
 			KeypadButtons.SOLVE, KeypadButtons.DET, KeypadButtons.INV,
-			KeypadButtons.POW2, KeypadButtons.POW3, KeypadButtons.TRANSPOSE,
+			KeypadButtons.TRANSPOSE, KeypadButtons.POW2, KeypadButtons.NORM1,
+			KeypadButtons.NORM2, KeypadButtons.NORMINF, KeypadButtons.POW3,
 			KeypadButtons.RANK, KeypadButtons.TRACE, KeypadButtons.EIGVALUE,
-			KeypadButtons.NORM1, KeypadButtons.NORM2, KeypadButtons.NORMINF,
-			KeypadButtons.SWAP};
+			KeypadButtons.EIGVECTOR, KeypadButtons.LUL, KeypadButtons.LUU,
+			KeypadButtons.SWAP , KeypadButtons.CLEARA};
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

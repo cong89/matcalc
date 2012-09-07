@@ -10,7 +10,10 @@
     <string name="matrix_hint_B">Matrix <b>B</b></string>
     <string name="transposeA">A<small><sup>T</sup></small></string>
     <string name="title_activity_about">About</string>
+    <string name="title_about">About MatCalc</string>
     <string name="content_about">This is the about page</string>
+    <string name="instructions">Use comma for new element, enter for new row.</string>
+    <string name="not_square">Matrix must be square.</string>
     
     <string name="add_sub_url">http://en.wikipedia.org/wiki/Matrix_addition</string>
     <string name="multiply_url">http://en.wikipedia.org/wiki/Matrix_multiplication</string>
@@ -21,7 +24,10 @@
     <string name="rank_url">http://en.wikipedia.org/wiki/Rank_matrix</string>
     <string name="trace_url">http://en.wikipedia.org/wiki/Matrix_trace</string>
     <string name="norm_url">http://en.wikipedia.org/wiki/Matrix_norm</string>
+    <string name="lu_url">http://en.wikipedia.org/wiki/LU_decomposition</string>
+    <string name="eigen_url">http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors</string>
     <string name="google_url">http://www.google.com</string>
+    
     
 
 </resources>
