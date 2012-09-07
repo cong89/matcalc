@@ -3,9 +3,13 @@ package com.android.matcalc;
 import Jama.Matrix;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -13,8 +17,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-//import android.widget.Toast;
-import com.android.matcalc.R;
+import android.widget.Toast;
+
+import android.annotation.SuppressLint;
 
 public class MainActivity extends Activity {
 
@@ -141,7 +146,7 @@ public class MainActivity extends Activity {
 				try {
 					mtxAns = A.times(b);
 					valid = true;
-				} catch (Exception e){
+				} catch (Exception e) {
 					errMsg = e.getMessage();
 				}
 			}
@@ -162,21 +167,23 @@ public class MainActivity extends Activity {
 			}
 			break;
 
-		/* SPECIAL CASE, manually implemented errMsg 
-		 * because it wasn't giving the correct exception message*/ 
-		case DET: 
+		/*
+		 * SPECIAL CASE, manually implemented errMsg because it wasn't giving
+		 * the correct exception message
+		 */
+		case DET:
 			ansType = DOUBLE_RESULT;
 			A = getMatrix(R.id.matrixA);
 			if (A != null) {
 				parsed = true;
-				
-				if (A.getColumnDimension() == A.getRowDimension()){
-				try {
-					dblAns = A.det();
-					valid = true;
-				} catch (Exception e) {
-					errMsg = e.getMessage();
-				}
+
+				if (A.getColumnDimension() == A.getRowDimension()) {
+					try {
+						dblAns = A.det();
+						valid = true;
+					} catch (Exception e) {
+						errMsg = e.getMessage();
+					}
 				} else {
 					errMsg = "Matrix must be square.";
 				}
@@ -314,6 +321,8 @@ public class MainActivity extends Activity {
 				ans = String.format("%d", intAns);
 			}
 
+			final String finalAns = ans;
+
 			// Toast to display which button is pressed
 			// Toast toast = Toast.makeText(MainActivity.this, keypadButton
 			// .getText().toString() + " " + keypadButton.toString(),
@@ -324,28 +333,42 @@ public class MainActivity extends Activity {
 			builder.setTitle("Output:")
 					.setMessage(ans)
 					.setCancelable(false)
-					.setPositiveButton("Why?",
+					.setPositiveButton("Why?", // Take user to URL
 							new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int id) {
-									MainActivity.this.finish();
+									Intent viewIntent = new Intent(
+											"android.intent.action.VIEW",
+											Uri.parse("http://www.wikipedia.com/"));
+									startActivity(viewIntent);
 								}
 							})
 					.setNeutralButton("Copy",
 							new DialogInterface.OnClickListener() {
 
+								@SuppressWarnings("deprecation")
+								@SuppressLint("NewApi")
 								@Override
 								public void onClick(DialogInterface dialog,
-										int which) {
-									/*
-									 * http://stackoverflow.com/questions/9027629
-									 * /
-									 * android-clipboard-code-that-works-on-all-
-									 * api-levels
-									 */
-									dialog.cancel();
-
+										int id) {
+/* if-else to detect API version and use
+ * the appropriate clipboard methods
+ */
+int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+if (currentapiVersion >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+	android.content.ClipboardManager clipboard = 
+			(android.content.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+	ClipData clip = ClipData.newPlainText("label", finalAns);
+	clipboard.setPrimaryClip(clip);
+} else { 
+	android.text.ClipboardManager clipboard = 
+			(android.text.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+	clipboard.setText(finalAns);
+}
+									Toast.makeText(getApplicationContext(),
+											"Copied to clipboard",
+											Toast.LENGTH_SHORT).show();
 								}
 							})
 					.setNegativeButton("Ok",
@@ -394,5 +417,22 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_exit:
+			MainActivity.this.finish();
+			return true;
+		case R.id.menu_about:
+			// TODO
+			return true;
+		case R.id.menu_settings:
+			// TODO
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }
