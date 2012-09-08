@@ -1,8 +1,9 @@
 package com.android.matcalc;
 
 import android.content.Context;
-import android.view.View.OnClickListener;
+import android.graphics.PorterDuff;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -52,7 +53,7 @@ public class KeypadAdapter extends BaseAdapter {
 		if (convertView == null) { // if it's not recycled, initialize some
 									// attributes
 			btn = new Button(mContext);
-
+			
 			if (keypadButton != KeypadButtons.DUMMY) {
 				btn.setOnClickListener(mOnButtonClick);
 			}
@@ -63,6 +64,13 @@ public class KeypadAdapter extends BaseAdapter {
 
 		btn.setTag(keypadButton);
 		btn.setText(mButtons[position].getTxtId());
+		
+		if (keypadButton == KeypadButtons.SWAP || keypadButton == KeypadButtons.CLEARA){
+			btn.getBackground().setColorFilter(0xFFAAAAAA, PorterDuff.Mode.MULTIPLY);
+		} else {
+			btn.getBackground().setColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY);	
+		}
+	
 		return btn;
 	}
 
