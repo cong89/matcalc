@@ -88,7 +88,6 @@ public class MainActivity extends Activity {
 
 		boolean valid = false;
 		boolean parsed = false;
-		boolean noDialog = false;
 		
 		Matrix A;
 		Matrix b;
@@ -407,7 +406,6 @@ public class MainActivity extends Activity {
 		case CLEARA:
 			EditText etClearA = (EditText) findViewById(R.id.matrixA);
 			etClearA.setText("");
-			noDialog = true;
 			break;
 			
 		case SWAP:
@@ -418,7 +416,6 @@ public class MainActivity extends Activity {
 			etMatrixB.setText(etMatrixA.getText().toString());
 			etMatrixA.setText(strTmp);
 			
-			noDialog = true;
 			break;
 
 		default:
@@ -428,7 +425,7 @@ public class MainActivity extends Activity {
 		
 /******************************************************************************/		
 
-		if (valid && !noDialog) {
+		if (valid && (keypadButton != KeypadButtons.SWAP || keypadButton != KeypadButtons.CLEARA)) {
 			// Using NumberFormat to have more control over formatted strings
 			NumberFormat nf = NumberFormat.getInstance();
 			nf.setMaximumFractionDigits(4);
@@ -508,7 +505,7 @@ public void onClick(DialogInterface dialog, int id) {
 			alert.show();
 			
 			
-		} else if (noDialog){
+		} else if (keypadButton == KeypadButtons.SWAP || keypadButton == KeypadButtons.CLEARA){
 			Toast.makeText(getApplicationContext(), "Swapped", 
 					Toast.LENGTH_SHORT).show();
 		
