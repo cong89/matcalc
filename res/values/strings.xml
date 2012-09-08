@@ -8,12 +8,34 @@
     <string name="title_activity_main">MatCalc</string>
     <string name="matrix_hint_A">Matrix <b>A</b></string>
     <string name="matrix_hint_B">Matrix <b>B</b></string>
-    <string name="transposeA">A<small><sup>T</sup></small></string>
     <string name="title_activity_about">About</string>
     <string name="title_about">About MatCalc</string>
     <string name="content_about">This is the about page</string>
     <string name="instructions">Use comma for new element, enter for new row.</string>
     <string name="not_square">Matrix must be square.</string>
+    
+    <string name="add">A+B</string>
+    <string name="subtract">A-B</string>
+    <string name="multiply">AB</string>
+    <string name="solve">AX=B</string>
+    <string name="det">|A|</string>
+    <string name="inv">A<sup><small>-1</small></sup></string>
+    <string name="trans">A<sup><small>T</small></sup></string>
+    <string name="pow2">A<sup><small>2</small></sup></string>
+    <string name="pow3">A<sup><small>3</small></sup></string>
+    <string name="norm1">||A||<sub><small>1</small></sub></string>
+    <string name="norm2">||A||<sub><small>2</small></sub></string>
+    <string name="normInf">||A||<sub><small>&#8734;</small></sub></string>
+    <string name="rank">RK(A)</string>
+    <string name="trace">TR(A)</string>
+    <string name="lul">LU:L</string>
+    <string name="luu">LU:U</string>
+    <string name="eigValue">D(A)</string>
+    <string name="eigVector">V(A)</string>
+    <string name="swap">swap</string>
+    <string name="clear">clear</string>
+    <string name="dummy"></string>
+    
     
     <string name="add_sub_url">http://en.wikipedia.org/wiki/Matrix_addition</string>
     <string name="multiply_url">http://en.wikipedia.org/wiki/Matrix_multiplication</string>

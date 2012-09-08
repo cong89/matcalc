@@ -45,6 +45,7 @@ public class KeypadAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		
 		Button btn;
 		KeypadButtons keypadButton = mButtons[position];
 
@@ -56,16 +57,12 @@ public class KeypadAdapter extends BaseAdapter {
 				btn.setOnClickListener(mOnButtonClick);
 			}
 
-			// Set CalculatorButton enumeration as tag of the button so that we
-			// will use this information from our main view to identify what to
-			// do
-
 		} else {
 			btn = (Button) convertView;
 		}
 
 		btn.setTag(keypadButton);
-		btn.setText(mButtons[position].getText());
+		btn.setText(mButtons[position].getTxtId());
 		return btn;
 	}
 
