@@ -552,11 +552,12 @@ public void onClick(DialogInterface dialog, int id) {
 			MainActivity.this.finish();
 			return true;
 		case R.id.menu_about:
-			Intent intent = new Intent(this, AboutActivity.class);
-			startActivity(intent);
+			Intent intentAbout = new Intent(this, AboutActivity.class);
+			startActivity(intentAbout);
 			return true;
-		case R.id.menu_settings:
-			// TODO
+		case R.id.menu_help:
+			Intent intentHelp = new Intent(this, HelpActivity.class);
+			startActivity(intentHelp);
 		default:
 			return super.onOptionsItemSelected(item);
 		}
