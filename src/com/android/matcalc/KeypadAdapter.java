@@ -66,7 +66,7 @@ public class KeypadAdapter extends BaseAdapter {
 		btn.setText(mButtons[position].getTxtId());
 		
 		if (keypadButton == KeypadButtons.SWAP || keypadButton == KeypadButtons.CLEARA){
-			btn.getBackground().setColorFilter(0xFFAAAAAA, PorterDuff.Mode.MULTIPLY);
+			btn.getBackground().setColorFilter(0xFFBBBBBB, PorterDuff.Mode.MULTIPLY);
 		} else {
 			btn.getBackground().setColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY);	
 		}

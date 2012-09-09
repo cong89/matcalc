@@ -11,8 +11,8 @@
     <string name="title_activity_about">About</string>
     <string name="title_about">About MatCalc</string>
     <string name="title_activity_help">Help</string>
-    <string name="title_help">Help</string>
-    <string name="content_about">This is the about page</string>
+    <string name="title_help"><b>Explinations for matrix operations</b></string>
+    <string name="content_about">This is the about page. Wisi consequat ut conventio valetudo vel suscipit, tristique vel elit. Macto dolore nimis, accumsan esse immitto minim jugis ulciscor facilisis at olim opto, quia. Oppeto amet refoveo ludus in sit. </string>
     <string name="content_help">This is the help page</string>
     <string name="instructions">Use comma for new element, enter for new row.</string>
     <string name="not_square">Matrix must be square.</string>
@@ -31,13 +31,19 @@
     <string name="normInf">||A||<sub><small>&#8734;</small></sub></string>
     <string name="rank">RK(A)</string>
     <string name="trace">TR(A)</string>
-    <string name="lul">LU:L</string>
-    <string name="luu">LU:U</string>
+    <string name="lul">LU-L</string>
+    <string name="luu">LU-U</string>
     <string name="eigValue">D(A)</string>
     <string name="eigVector">V(A)</string>
     <string name="swap">swap</string>
     <string name="clear">clear</string>
     <string name="dummy"></string>
+    
+    <string name="row1"><b>Row one:</b> \nA+B: matrix addition \nA-B: matrix subtraction \nAB: matrix multiplication \nAX=B: solve for X</string>
+    <string name="row2"><b>Row two:</b> \n|A|: determinant of A \nA<sup><small>-1</small></sup>: inverse of A \nA<sup><small>T</small></sup>: transpose of A \nA<sup><small>2</small></sup>: A squared</string>
+    <string name="row3"><b>Row three:</b> \n||A||<sub><small>1</small></sub>: first norm \n||A||<sub><small>2</small></sub>: second norm \n||A||<sub><small>&#8734;</small></sub>: infinity norm \nA<sup><small>3</small></sup>: A cubed</string>
+    <string name="row4"><b>Row four:</b> \nRK(A): rank of A \nTR(A): trace of A \nD(A): eigenvalues of A \nV(A): eigenvector of A</string>
+    <string name="row5"><b>Row five:</b> \nLU-L: L of LU decomposition of A \nLU-U: U of LU decomposition of A \nswap: swap A for B \nclear: clear A</string>
     
     <string name="add_sub_url">http://en.wikipedia.org/wiki/Matrix_addition</string>
     <string name="multiply_url">http://en.wikipedia.org/wiki/Matrix_multiplication</string>
