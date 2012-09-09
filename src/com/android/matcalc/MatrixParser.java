@@ -4,19 +4,28 @@ import java.text.NumberFormat;
 
 public class MatrixParser {
 
-	// parse string into 2D double
+	/* parse string into 2D double
+	 * if failed then will return null
+	 * note: some operations require two matrices
+	 */
 	public static double[][] parse(String strX) {
-		double[][] dblX = null;
+		double[][] dblX;
 		int i;
 		int j;
+		String[] strM;
+		String[] strN;
+		String[] strTmp;
 		strX = strX.replace(" ", "");
 		strX = strX.replace("\n\n", "\n");
 
-		String[] strM = strX.split("\n");
-		String[] strN = strM[0].split(",");
-		String[] strTmp;
-
-		dblX = new double[strM.length][strN.length];
+		try {
+			strM = strX.split("\n");
+			strN = strM[0].split(",");
+			dblX = new double[strM.length][strN.length];
+		} catch (Exception e){
+			System.out.println("Splitting failed.");
+			return null;
+		}
 
 		for (i = 0; i < strM.length; i++) {
 			strTmp = strM[i].split(",");
@@ -26,23 +35,21 @@ public class MatrixParser {
 					dblX[i][j] = Double.parseDouble(strTmp[j]);
 				} catch (Exception e) {
 					System.out.println("Parsing failed.");
-					dblX = null;
-					break;
+					return null;
 				}
 			}
-			if (dblX == null) break;
 		}
 		return dblX;
 	}
 
-	// Convert double to string
+	/* Convert double to string */
 	public static String dblToStr(double[][] x, int row, int col) {
 		
 		int i = 0;
 		int j = 0;
 		String strAns = "";
 		
-		// Using NumberFormat to have more control over formatted strings
+		/* Using NumberFormat to have more control over formatted strings */
 		NumberFormat nf = NumberFormat.getInstance();
 		nf.setMaximumFractionDigits(4);
 		nf.setMinimumFractionDigits(0);
@@ -57,7 +64,7 @@ public class MatrixParser {
 
 	}
 	
-	// Display complex number
+	/* Display complex number */
 	public static String dispComplex(double re[], double im[]){
 		String str = ""; 
 		int i = 0;

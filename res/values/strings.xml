@@ -8,9 +8,9 @@
     <string name="title_activity_main">MatCalc</string>
     <string name="matrix_hint_A">Matrix <b>A</b></string>
     <string name="matrix_hint_B">Matrix <b>B</b></string>
-    <string name="title_activity_about">About</string>
+    <string name="title_activity_about">MatCalc: About</string>
+    <string name="title_activity_help">MatCalc: Help</string>
     <string name="title_about">About MatCalc</string>
-    <string name="title_activity_help">Help</string>
     <string name="title_help"><b>Explinations for matrix operations</b></string>
     <string name="content_about">This is the about page. Wisi consequat ut conventio valetudo vel suscipit, tristique vel elit. Macto dolore nimis, accumsan esse immitto minim jugis ulciscor facilisis at olim opto, quia. Oppeto amet refoveo ludus in sit. </string>
     <string name="content_help">This is the help page</string>
