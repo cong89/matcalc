@@ -56,7 +56,11 @@ public class MatrixParser {
 
 		for (i = 0; i < row; i++) {
 			for (j = 0; j < col; j++) {
-				strAns = strAns + nf.format(x[i][j]) + ", ";
+				if (j == col-1){
+					strAns = strAns + nf.format(x[i][j]);
+				} else {
+					strAns = strAns + nf.format(x[i][j]) + ", ";
+				}
 			}
 			strAns = strAns + "\n";
 		}
