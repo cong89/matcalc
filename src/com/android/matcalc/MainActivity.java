@@ -456,7 +456,7 @@ public class MainActivity extends Activity {
 			builder.setTitle("Output:")
 					.setMessage(ans)
 					.setCancelable(false)
-					.setPositiveButton("Why?", // Take user to URL
+					.setPositiveButton(R.string.btn_wiki, // Take user to URL
 							new DialogInterface.OnClickListener() {
 @Override
 public void onClick(DialogInterface dialog, int id) {
@@ -464,7 +464,7 @@ public void onClick(DialogInterface dialog, int id) {
 	startActivity(viewIntent);
 }
 							})
-					.setNeutralButton("Copy",
+					.setNeutralButton(R.string.btn_copy,
 							new DialogInterface.OnClickListener() {
 
 @SuppressWarnings("deprecation")
@@ -491,7 +491,7 @@ public void onClick(DialogInterface dialog,
 			Toast.LENGTH_SHORT).show();
 				}
 							})
-					.setNegativeButton("Ok",
+					.setNegativeButton(R.string.btn_ok,
 							new DialogInterface.OnClickListener() {
 @Override
 public void onClick(DialogInterface dialog, int id) {
@@ -520,7 +520,7 @@ public void onClick(DialogInterface dialog, int id) {
 			builder.setTitle("Sorry!")
 					.setMessage(errMsg)
 					.setCancelable(false)
-					.setNegativeButton("Ok",
+					.setNegativeButton(R.string.btn_ok,
 							new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog,

@@ -10,9 +10,9 @@
     <string name="matrix_hint_B"><b>Matrix B</b> \nfor example: \n0.5 \n2 \n8</string>
     <string name="title_activity_about">MatCalc: About</string>
     <string name="title_activity_help">MatCalc: Help</string>
-    <string name="title_about">About MatCalc</string>
+    <string name="title_about"><b>About MatCalc</b></string>
     <string name="title_help"><b>Explinations for matrix operations</b></string>
-    <string name="content_about">This is the about page. Wisi consequat ut conventio valetudo vel suscipit, tristique vel elit. Macto dolore nimis, accumsan esse immitto minim jugis ulciscor facilisis at olim opto, quia. Oppeto amet refoveo ludus in sit. </string>
+    <string name="content_about">MatCalc is a free and open source matrix calculator. It uses the lightweight but powerful JAMA matrix package, which is available in the public-domain. If you wish to contribute to the project, please visit the following link.</string>
     <string name="content_help">This is the help page</string>
     <string name="instructions">Use comma for new element, enter for new row.</string>
     <string name="not_square">Matrix must be square.</string>
@@ -45,6 +45,10 @@
     <string name="row4"><b>Row four:</b> \nRK(A): rank of A \nTR(A): trace of A \nD(A): eigenvalues of A \nV(A): eigenvector of A</string>
     <string name="row5"><b>Row five:</b> \nLU-L: L of LU decomposition of A \nLU-U: U of LU decomposition of A \nswap: swap A for B \nclear: clear A</string>
     
+    <string name="btn_wiki">Wiki</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_copy">Copy</string>
+    
     <string name="add_sub_url">http://en.wikipedia.org/wiki/Matrix_addition</string>
     <string name="multiply_url">http://en.wikipedia.org/wiki/Matrix_multiplication</string>
     <string name="solve_url">http://en.wikipedia.org/wiki/System_of_linear_equations</string>
@@ -57,5 +61,6 @@
     <string name="lu_url">http://en.wikipedia.org/wiki/LU_decomposition</string>
     <string name="eigen_url">http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors</string>
     <string name="google_url">http://www.google.com</string>
+    <string name="home_page">https://github.com/cong89/matcalc</string>
 
 </resources>
