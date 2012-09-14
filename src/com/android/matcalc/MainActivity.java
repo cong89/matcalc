@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 import android.annotation.SuppressLint;
+import com.cong89.matcalc.R;
 
 public class MainActivity extends Activity {
 

@@ -1,5 +1,7 @@
 package com.android.matcalc;
 
+import com.cong89.matcalc.R;
+
 public enum KeypadButtons {
 	ADD(R.string.add_sub_url, R.string.add),
 	SUBTRACT(R.string.add_sub_url, R.string.subtract),

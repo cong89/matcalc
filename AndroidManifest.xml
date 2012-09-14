@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.matcalc"
+    package="com.cong89.matcalc"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="BETA 1.0" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -21,14 +21,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name="com.android.matcalc.AboutActivity"
             android:label="@string/title_activity_about" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.android.matcalc.MainActivity" />
         </activity>
         <activity
-            android:name=".HelpActivity"
+            android:name="com.android.matcalc.HelpActivity"
             android:label="@string/title_activity_help" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
