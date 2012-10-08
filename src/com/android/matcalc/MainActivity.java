@@ -454,7 +454,7 @@ public class MainActivity extends Activity {
 
 			// Dialog to show the results and additional options
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Output:")
+			builder.setTitle("OUTPUT: " + getString(keypadButton.getTxtId()))
 					.setMessage(ans)
 					.setCancelable(false)
 					.setPositiveButton(R.string.btn_wiki, // Take user to URL
@@ -518,7 +518,7 @@ public void onClick(DialogInterface dialog, int id) {
 
 			// Dialog to say invalid operation
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Sorry!")
+			builder.setTitle("SORRY: " + getString(keypadButton.getTxtId()))
 					.setMessage(errMsg)
 					.setCancelable(false)
 					.setNegativeButton(R.string.btn_ok,
